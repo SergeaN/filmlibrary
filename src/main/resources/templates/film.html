@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<main>
+    <div class="container">
+        <h3 class="mt-3">Информация о фильме</h3>
+        <div class="mt-3"><p th:text="'Id: ' + ${id}"/></div>
+        <div class="mt-3"><p th:text="'Название: ' + ${title}"/></div>
+        <div class="mt-3"><p th:text="'Год: ' + ${released}"/></div>
+        <div class="mt-3"><p th:text="'Страна: ' + ${country}"/></div>
+        <div class="mt-3"><p th:text="'Жанр: ' + ${genre}"/></div>
+        <div class="mt-3"><p th:text="'Студия: ' + ${studio}"/></div>
+        <div class="mt-3"><p th:text="'Описание: ' + ${description}"/></div>
+        <div class="mt-3"><p th:text="'Режиссёр: ' + ${director}"/></div>
+        <div class="mt-3"><p th:text="'Сценарист: ' + ${screenwriter}"/></div>
+        <div class="mt-3"><p th:text="'Продюссер: ' + ${producer}"/></div>
+        <div class="mt-3"><p th:text="'Оператор: ' + ${operator}"/></div>
+        <div class="mt-3"><p th:text="'Художник: ' + ${painter}"/></div>
+        <div class="mt-3"><p th:text="'Монтажёр: ' + ${editor}"/></div>
+        <div class="mt-3"><p th:text="'Актёрский состав: ' + ${actors}"/></div>
+
+        <h3 class="mt-5">Добавление деятеля кино в фильма по ID: </h3><br>
+        <form action="/film/addFigure" method="post"><br>
+            <input type="text" name="figureId" class="form-control" placeholder="Id фигуры"><br>
+            <input type="text" name="filmId" class="form-control" placeholder="Id фильма"><br>
+            <button type="submit" class="btn btn-success">Добавить в базу</button>
+            <br>
+        </form>
+
+        <h3 class="mt-5">Удаление деятеля кино из фильма по ID: </h3><br>
+        <form class="mb-5" action="/film/deleteFigure" method="post"><br>
+            <input type="text" name="figureId" class="form-control" placeholder="Id фигуры"><br>
+            <input type="text" name="filmId" class="form-control" placeholder="Id фильма"><br>
+            <button type="submit" class="btn btn-success">Удалить из базы</button>
+            <br>
+        </form>
+    </div>
+
+</main>
+
+</body>
+</html>

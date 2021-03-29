@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${fullname}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<main>
+    <div class="container">
+        <h3 class="mt-3">Информация о фильме</h3>
+        <div class="mt-3"><p th:text="'Id: ' + ${id}"/></div>
+        <div class="mt-3"><p th:text="${type}"/></div>
+        <div class="mt-3"><p th:text="'Полное имя: ' + ${fullname}"/></div>
+        <div class="mt-3"><p th:text="'Пол: ' + ${sex}"/></div>
+        <div class="mt-3"><p th:text="'Дата рождения: ' + ${birthday}"/></div>
+        <div class="mt-3"><p th:text="'Список фильмов: ' + ${films}"/></div>
+    </div>
+
+</main>
+
+</body>
+</html>

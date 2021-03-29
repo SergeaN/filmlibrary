@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="'Список типов деятелей кино'"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<main>
+    <div class="container">
+        <h3>Список типов деятелей кино (Режиссёр, актёр и т.п.)</h3>
+        <div class="row row-cols-md-5 mb-3">
+            <div class="col themed-grid-col"><p th:text="${figuretypes}"/></div>
+        </div>
+    </div>
+
+</main>
+
+</body>
+</html>
