@@ -1,10 +1,12 @@
 package ru.etu.filmlibrary.models.data;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "user_type")
-public class UserType {
+public class UserType implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -30,5 +32,10 @@ public class UserType {
     @Override
     public String toString() {
         return id + " " + title;
+    }
+
+    @Override
+    public String getAuthority() {
+        return getTitle();
     }
 }

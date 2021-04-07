@@ -21,6 +21,7 @@ public class Film {
 
     private String description;
     private String studio;
+    private String photoHref;
 
     @ManyToMany
     @JoinTable(
@@ -86,6 +87,14 @@ public class Film {
         this.studio = studio;
     }
 
+    public String getPhotoHref() {
+        return photoHref;
+    }
+
+    public void setPhotoHref(String photoHref) {
+        this.photoHref = photoHref;
+    }
+
     public Set<Figure> getFigures() {
         return figures;
     }
@@ -98,6 +107,7 @@ public class Film {
     public String toString() {
         return id + " " + title + " " + released + " " + country + " " +
                 genreId.getTitle() + " " + description + " " + studio + System.lineSeparator()
+                + photoHref + System.lineSeparator()
                 + System.lineSeparator() + figures.toString();
     }
 }

@@ -24,7 +24,7 @@ public class UserController {
     public String getUsers(Model model) {
         model.addAttribute("users", userRepository.findAll().toString());
         model.addAttribute("usertypes", userTypeRepository.findAll().toString());
-        return "users";
+        return "admin-users";
     }
 
     @PostMapping(path = "/add")

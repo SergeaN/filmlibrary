@@ -14,6 +14,7 @@ import ru.etu.filmlibrary.models.repositories.FigureTypeRepository;
 import ru.etu.filmlibrary.utils.DateUtil;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,17 +33,11 @@ public class FigureController {
         Optional<Figure> optionalFigure = figureRepository.findById(Integer.parseInt(id));
         if (optionalFigure.isPresent()) {
             Figure figure = optionalFigure.get();
-            model.addAttribute("id", figure.getId())
-                    .addAttribute("type", figure.getId())
-                    .addAttribute("fullname", figure.getId())
-                    .addAttribute("sex", figure.getId())
-                    .addAttribute("birthday", figure.getId());
+            String birthday = new SimpleDateFormat("dd/MM/yyyy")
+                    .format(figure.getBirthday());
+            model.addAttribute("figure", figure);
+            model.addAttribute("birthday", birthday);
 
-            List<String> films = new ArrayList<>();
-            for (Film film : figure.getFilms()) {
-                films.add(film.getTitle() + " " + film.getReleased());
-            }
-            model.addAttribute("films", films);
             return "figure";
         } else return "redirect:/figure";
     }
@@ -51,22 +46,24 @@ public class FigureController {
     public String addFigure(@RequestParam String type_id,
                             @RequestParam String fullname,
                             @RequestParam String sex,
-                            @RequestParam String birthday) {
+                            @RequestParam String birthday,
+                            @RequestParam String photo_href) {
         Figure figure = new Figure();
         Optional<FigureType> optional = figureTypeRepository.findById(Integer.valueOf(type_id));
         optional.ifPresent(figure::setTypeId);
         figure.setFullname(fullname);
+        figure.setPhotoHref(photo_href);
         if (sex.length() == 1 && (sex.contains("М") || sex.contains("Ж"))) figure.setSex(sex);
         else {
-            return "redirect:/figure";
+            return "redirect:/admin/figures";
         }
         try {
             figure.setBirthday(DateUtil.getDateFromString(birthday));
         } catch (ParseException e) {
-            return "redirect:/figure";
+            return "redirect:/admin/figures";
         }
         figureRepository.save(figure);
-        return "redirect:/figure";
+        return "redirect:/admin/figures";
     }
 
     @PostMapping(path = "/update")
@@ -102,13 +99,15 @@ public class FigureController {
             figureRepository.deleteById(Integer.valueOf(id));
         } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
         }
-        return "redirect:/figure";
+        return "redirect:/admin/figures";
     }
 
     @GetMapping
     public String getFigures(Model model) {
+        model.addAttribute("title", "Все фигур");
         model.addAttribute("figures", figureRepository.findAll());
         model.addAttribute("figuretypes", figureTypeRepository.findAll());
         return "figures";
     }
+
 }

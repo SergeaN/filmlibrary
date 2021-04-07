@@ -1,40 +1,48 @@
-ru/etu/filmlibrary/FilmlibraryApplication.java
- ru.etu.filmlibrary.FilmlibraryApplication
-ru/etu/filmlibrary/utils/DateUtil.java
- ru.etu.filmlibrary.utils.DateUtil
-ru/etu/filmlibrary/controllers/FigureController.java
- ru.etu.filmlibrary.controllers.FigureController
-ru/etu/filmlibrary/models/repositories/FigureRepository.java
- ru.etu.filmlibrary.models.repositories.FigureRepository
-ru/etu/filmlibrary/controllers/FigureTypeController.java
- ru.etu.filmlibrary.controllers.FigureTypeController
-ru/etu/filmlibrary/models/data/Figure.java
- ru.etu.filmlibrary.models.data.Figure
-ru/etu/filmlibrary/models/repositories/FilmRepository.java
- ru.etu.filmlibrary.models.repositories.FilmRepository
-ru/etu/filmlibrary/models/data/FigureType.java
- ru.etu.filmlibrary.models.data.FigureType
-ru/etu/filmlibrary/controllers/FilmController.java
- ru.etu.filmlibrary.controllers.FilmController
-ru/etu/filmlibrary/controllers/GenreController.java
- ru.etu.filmlibrary.controllers.GenreController
-ru/etu/filmlibrary/models/data/Film.java
- ru.etu.filmlibrary.models.data.Film
-ru/etu/filmlibrary/models/repositories/GenreRepository.java
- ru.etu.filmlibrary.models.repositories.GenreRepository
-ru/etu/filmlibrary/models/data/Genre.java
- ru.etu.filmlibrary.models.data.Genre
-ru/etu/filmlibrary/models/repositories/FigureTypeRepository.java
- ru.etu.filmlibrary.models.repositories.FigureTypeRepository
-ru/etu/filmlibrary/models/data/UserType.java
- ru.etu.filmlibrary.models.data.UserType
-ru/etu/filmlibrary/models/repositories/UserTypeRepository.java
- ru.etu.filmlibrary.models.repositories.UserTypeRepository
-ru/etu/filmlibrary/models/data/User.java
- ru.etu.filmlibrary.models.data.User
-ru/etu/filmlibrary/controllers/UserTypeController.java
- ru.etu.filmlibrary.controllers.UserTypeController
-ru/etu/filmlibrary/models/repositories/UserRepository.java
- ru.etu.filmlibrary.models.repositories.UserRepository
 ru/etu/filmlibrary/controllers/UserController.java
  ru.etu.filmlibrary.controllers.UserController
+ru/etu/filmlibrary/models/repositories/UserTypeRepository.java
+ ru.etu.filmlibrary.models.repositories.UserTypeRepository
+ru/etu/filmlibrary/models/repositories/FigureRepository.java
+ ru.etu.filmlibrary.models.repositories.FigureRepository
+ru/etu/filmlibrary/models/data/Film.java
+ ru.etu.filmlibrary.models.data.Film
+ru/etu/filmlibrary/models/data/Genre.java
+ ru.etu.filmlibrary.models.data.Genre
+ru/etu/filmlibrary/models/repositories/FilmRepository.java
+ ru.etu.filmlibrary.models.repositories.FilmRepository
+ru/etu/filmlibrary/FilmlibraryApplication.java
+ ru.etu.filmlibrary.FilmlibraryApplication
+ru/etu/filmlibrary/controllers/HomeController.java
+ ru.etu.filmlibrary.controllers.HomeController
+ru/etu/filmlibrary/models/repositories/UserRepository.java
+ ru.etu.filmlibrary.models.repositories.UserRepository
+ru/etu/filmlibrary/models/data/FigureType.java
+ ru.etu.filmlibrary.models.data.FigureType
+ru/etu/filmlibrary/models/data/User.java
+ ru.etu.filmlibrary.models.data.User
+ru/etu/filmlibrary/config/MvcConfig.java
+ ru.etu.filmlibrary.config.MvcConfig
+ru/etu/filmlibrary/config/WebSecurityConfig.java
+ ru.etu.filmlibrary.config.WebSecurityConfig
+ru/etu/filmlibrary/models/data/UserType.java
+ ru.etu.filmlibrary.models.data.UserType
+ru/etu/filmlibrary/utils/DateUtil.java
+ ru.etu.filmlibrary.utils.DateUtil
+ru/etu/filmlibrary/controllers/FiguresController.java
+ ru.etu.filmlibrary.controllers.FiguresController
+ru/etu/filmlibrary/models/repositories/GenreRepository.java
+ ru.etu.filmlibrary.models.repositories.GenreRepository
+ru/etu/filmlibrary/models/data/Figure.java
+ ru.etu.filmlibrary.models.data.Figure
+ru/etu/filmlibrary/models/repositories/FigureTypeRepository.java
+ ru.etu.filmlibrary.models.repositories.FigureTypeRepository
+ru/etu/filmlibrary/controllers/RegistrationController.java
+ ru.etu.filmlibrary.controllers.RegistrationController
+ru/etu/filmlibrary/controllers/GenreController.java
+ ru.etu.filmlibrary.controllers.GenreController
+ru/etu/filmlibrary/controllers/FigureController.java
+ ru.etu.filmlibrary.controllers.FigureController
+ru/etu/filmlibrary/controllers/FilmController.java
+ ru.etu.filmlibrary.controllers.FilmController
+ru/etu/filmlibrary/controllers/AdminController.java
+ ru.etu.filmlibrary.controllers.AdminController

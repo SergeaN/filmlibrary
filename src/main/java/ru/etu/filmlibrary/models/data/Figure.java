@@ -21,6 +21,7 @@ public class Figure {
     private String fullname;
     private String sex;
     private Date birthday;
+    private String photoHref;
 
     @ManyToMany(mappedBy = "figures")
     private Set<Film> films = new HashSet<>();
@@ -63,6 +64,14 @@ public class Figure {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getPhotoHref() {
+        return photoHref;
+    }
+
+    public void setPhotoHref(String photoHref) {
+        this.photoHref = photoHref;
     }
 
     public Set<Film> getFilms() {
