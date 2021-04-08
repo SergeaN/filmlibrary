@@ -6,8 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.etu.filmlibrary.models.data.Role;
+import ru.etu.filmlibrary.models.data.User;
 import ru.etu.filmlibrary.models.repositories.UserRepository;
 import ru.etu.filmlibrary.models.services.UserService;
+
+import java.util.Set;
 
 @Controller
 @RequestMapping(path = "/profile")
@@ -30,8 +34,14 @@ public class ProfileController {
 
     @GetMapping
     public String getUserInfo(Model model) {
-        model.addAttribute("user", userRepository.findByUsername(
-                SecurityContextHolder.getContext().getAuthentication().getName()).toString());
+        User user = userRepository.findByUsername(
+                SecurityContextHolder.getContext().getAuthentication().getName());
+        model.addAttribute("user", user);
+        for (Role role : user.getRoles()) {
+            if (role.getName().equals("ROLE_ADMIN")) {
+                model.addAttribute("role", "ADMIN");
+            }
+        }
         return "profile";
     }
 }

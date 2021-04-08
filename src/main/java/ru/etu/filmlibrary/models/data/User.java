@@ -20,7 +20,7 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    private Set<Role> roles = getRoles();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "film_id")
