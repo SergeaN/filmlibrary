@@ -32,12 +32,6 @@ public class FilmController {
     @Autowired
     FigureRepository figureRepository;
 
-    @GetMapping
-    public String getFilms(Model model) {
-        model.addAttribute("films", filmRepository.findAll());
-        model.addAttribute("genres", genreRepository.findAll());
-        return "films-list";
-    }
 
     @GetMapping(value = {"/{id}"})
     public String getFilmInfo(@PathVariable(value = "id") String id, Model model) {
@@ -112,7 +106,8 @@ public class FilmController {
 
         if (title.length() >= 255 || released.length() != 4 ||
                 country.length() >= 255 || description.length() >= 255 ||
-                studio.length() >= 255) return "redirect:/admin/films";
+                studio.length() >= 255 || photo_href.length() >= 255)
+            return "redirect:/admin/films";
         Film film = new Film();
         film.setTitle(title);
         film.setReleased(Integer.parseInt(released));
@@ -122,8 +117,7 @@ public class FilmController {
         film.setStudio(studio);
         film.setPhotoHref(photo_href);
         filmRepository.save(film);
-        //return "redirect:/admin/film/" + film.getId();
-        return "redirect:/admin/films";
+        return "redirect:/admin/film/" + film.getId();
     }
 
     @PostMapping(path = "/update")
@@ -169,9 +163,9 @@ public class FilmController {
             Film film = optionalFilm.get();
             film.getFigures().add(figure);
             filmRepository.save(film);
-            return "redirect:/film/" + film.getId();
+            return "redirect:/admin/film/" + film.getId();
         }
-        return "redirect:/film";
+        return "redirect:/admin/films/";
     }
 
     @PostMapping(path = "/deleteFigure")
@@ -183,8 +177,8 @@ public class FilmController {
             Film film = optionalFilm.get();
             film.getFigures().remove(figure);
             filmRepository.save(film);
-            return "redirect:/film/" + film.getId();
+            return "redirect:/admin/film/" + film.getId();
         }
-        return "redirect:/film";
+        return "redirect:/admin/films/";
     }
 }

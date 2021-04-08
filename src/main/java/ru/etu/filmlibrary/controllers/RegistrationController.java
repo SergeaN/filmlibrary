@@ -3,21 +3,25 @@ package ru.etu.filmlibrary.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import ru.etu.filmlibrary.models.data.Role;
 import ru.etu.filmlibrary.models.data.User;
 import ru.etu.filmlibrary.models.repositories.UserRepository;
+import ru.etu.filmlibrary.models.services.UserService;
 
-import javax.validation.Valid;
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class RegistrationController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping(path = "/registration")
     public String registration(Model model) {
@@ -26,7 +30,7 @@ public class RegistrationController {
 
     @PostMapping(path = "/registration")
     public String addUser(@RequestParam String email,
-                          @RequestParam String login,
+                          @RequestParam String username,
                           @RequestParam String password, Model model) {
 
         if (userRepository.findByEmail(email) != null) {
@@ -35,19 +39,27 @@ public class RegistrationController {
             return "registration";
         }
 
-        if (userRepository.findByLogin(login) != null) {
+        if (userRepository.findByUsername(username) != null) {
             model.addAttribute("loginError",
                     "Пользователь с таким именем уже существует");
             return "registration";
         }
 
+
         User user = new User();
         user.setEmail(email);
-        user.setLogin(login);
+        user.setUsername(username);
         user.setPassword(password);
 
-        userRepository.save(user);
 
-        return "redirect:/user";
+        userService.saveUser(user);
+
+        return "redirect:/film";
+    }
+
+    @PostMapping(path = "/delete")
+    public String deleteUser(@RequestParam String id) {
+        userService.deleteUser(Long.parseLong(id));
+        return "redirect:/admin/users";
     }
 }

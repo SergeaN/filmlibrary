@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.etu.filmlibrary.models.repositories.FigureRepository;
 import ru.etu.filmlibrary.models.repositories.FilmRepository;
 
 @Controller
@@ -13,6 +15,9 @@ public class HomeController {
 
     @Autowired
     FilmRepository filmRepository;
+
+    @Autowired
+    FigureRepository figureRepository;
 
     @GetMapping
     public String home(Model model) {
@@ -27,4 +32,12 @@ public class HomeController {
                 .ifPresent(film -> model.addAttribute("film3", film));
         return "home";
     }
+
+    @GetMapping(path = "/search")
+    public String search(@RequestParam String searchQuery, Model model) {
+        model.addAttribute("films", filmRepository.findFilmsByQuery(searchQuery));
+        model.addAttribute("figures", figureRepository.findFiguresByQuery(searchQuery));
+        return "films-list";
+    }
+
 }

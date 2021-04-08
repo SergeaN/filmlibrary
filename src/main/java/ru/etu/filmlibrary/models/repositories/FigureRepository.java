@@ -13,4 +13,7 @@ public interface FigureRepository extends CrudRepository<Figure, Integer> {
     @Query(value = "SELECT f FROM Figure as f where f.typeId.id=:typeId")
     List<Figure> findFiguresByTypeId(@Param("typeId") Integer typeId);
 
+    @Query(value = "SELECT f FROM Figure as f where f.fullname LIKE CONCAT('%',?1,'%')")
+    List<Figure> findFiguresByQuery(@Param("search") String search);
+
 }
