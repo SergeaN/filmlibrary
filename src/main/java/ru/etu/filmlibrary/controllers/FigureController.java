@@ -110,4 +110,21 @@ public class FigureController {
         return "figures";
     }
 
+
+    @GetMapping(path = "/all/{id}")
+    public String getFigureByTypeId(@PathVariable(value = "id") String typeId,
+                                    Model model) {
+
+        figureTypeRepository.findById(Integer.parseInt(typeId))
+                .ifPresent(figureType -> model.addAttribute("title",
+                        figureType.getTitle()));
+
+        model.addAttribute("figures", figureRepository
+                .findFiguresByTypeId(Integer.parseInt(typeId)));
+
+        model.addAttribute("figuretypes", figureTypeRepository.findAll().toString());
+
+        return "figures-list";
+    }
+
 }
