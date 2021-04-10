@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface FilmRepository extends CrudRepository<Film, Integer> {
 
-    @Query(value = "SELECT f FROM Film as f where f.title LIKE CONCAT('%',?1,'%')")
+    @Query(value = "SELECT f FROM Film AS f WHERE f.title LIKE CONCAT('%',?1,'%')")
     List<Film> findFilmsByQuery(@Param("search") String search);
 
 

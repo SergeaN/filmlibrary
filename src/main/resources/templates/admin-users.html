@@ -13,67 +13,7 @@
     <title th:text="'Список пользователей'"/>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-xxl">
-            <a class="navbar-brand">Библиотека фильмов</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page"
-                           href="http://localhost:8080">Главная</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Поиск по типу
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="http://localhost:8080/figure/all/1">Актеры</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/figure/all/2">Режиссеры</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/figure/all/3">Сценаристы</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/figure/all/4">Продюссеры</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/figure/all/5">Операторы</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/figure/all/6">Художники</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/figure/all/7">Монтажёры</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Поиск по жанру
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="http://localhost:8080/genres/1">Боевик</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/genres/2">Детектив</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/genres/3">Драма</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/genres/4">Комедия</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/genres/5">Мелодрама</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/genres/6">Триллер</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/genres/7">Ужасы</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/genres/8">Фантастика</a></li>
-                            <li><a class="dropdown-item" href="http://localhost:8080/genres/10">Документальный</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <form class="mr-2" action="http://localhost:8080/profile">
-                    <button class="btn btn-outline-success" type="submit">Профиль</button>
-                </form>
-                <form class="d-flex" action="/search" method="get">
-                    <input class="form-control me-2" type="search" name="searchQuery" placeholder="Search"
-                           aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Поиск</button>
-                </form>
-            </div>
-        </div>
-    </nav>
-</header>
+<header th:insert="header :: header"></header>
 <main>
     <div class="container">
         <h3 class="mt-3">Список польёзователей</h3>
