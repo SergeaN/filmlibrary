@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Редактирование фильмов</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+    <title>Редактирование информации о фильме</title>
 </head>
 <body>
 <header>
@@ -72,41 +72,43 @@
                 </form>
             </div>
         </div>
-    </nav></header>
+    </nav>
+</header>
 <main>
     <div class="container">
-        <h3>Список фигур</h3>
-        <div class="mt-3"><p th:text="${figures}"/></div>
-
-        <h3>Список типов фигур</h3>
-        <div class="mt-3"><p th:text="${figuretypes}"/></div>
+        <h3 class="mt-2">Список жанров</h3>
+        <div><p th:text="${genres}"/></div>
 
         <div>
-            <h3 class="mt-5">Добавление фигуры в базу данных: </h3><br>
-            <form action="/figure/add" method="post"><br>
-                <input type="text" name="type_id" placeholder="Figure Type ID (второй столбец)"
+            <h3 class="mt-3">Изменение информации о фильме: </h3>
+            <form action="/film/update" method="post">
+                <input type="hidden" name="id" th:value="${film.id}" class="form-control">
+                <input type="text" name="title" th:value="${film.title}"
+                       placeholder="Название фильма" class="form-control"><br>
+                <input type="text" name="released" th:value="${film.released}"
+                       placeholder="Год выхода (4 цифры)" class="form-control"><br>
+                <input type="text" name="country" th:value="${film.country}"
+                       placeholder="Страна выхода" class="form-control"><br>
+                <input type="text" name="genre_id" th:value="${film.genreId.id}"
+                       placeholder="Id жанра фильма (список id в начале страницы)"
                        class="form-control"><br>
-                <input type="text" name="fullname" placeholder="Полное имя" class="form-control"><br>
-                <input type="text" name="sex" placeholder="Пол - 1 буква (М или Ж) (да мы не толерантны)"
+                <input type="text" name="description" th:value="${film.description}"
+                       placeholder="Описание (не больше 254 символов)"
                        class="form-control"><br>
-                <input type="text" name="birthday" placeholder="Дата рождения в формате ДД/ММ/ГГГГ"
-                       class="form-control"><br>
-                <input type="text" name="photo_href" placeholder="Ссылка на фотографию"
-                       class="form-control"><br>
-                <button type="submit" class="btn btn-success">Добавить в базу</button>
-                <br>
-            </form>
-            <h3 class="mt-5">Удаление фигуры из базы данных по ID: </h3><br>
-            <form action="/figure/delete" method="post" class="mb-3"><br>
-                <input type="text" name="id" class="form-control"><br>
-                <button type="submit" class="btn btn-success">Удалить из базы</button>
-                <br>
+                <input type="text" name="studio" th:value="${film.studio}"
+                       placeholder="Студия производства" class="form-control"><br>
+                <input type="text" name="photo_href" th:value="${film.photoHref}"
+                       placeholder="Ссылка на фотографию" class="form-control"><br>
+                <button type="submit"
+                        class="btn btn-success mb-3">Обновить
+                </button>
             </form>
         </div>
     </div>
 </main>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"/>
+        crossorigin="anonymous"></script>
 </body>
 </html>

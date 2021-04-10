@@ -71,30 +71,32 @@ public class FigureController {
                                @RequestParam String type_id,
                                @RequestParam String fullname,
                                @RequestParam String sex,
-                               @RequestParam String birthday) {
+                               @RequestParam String birthday,
+                               @RequestParam String photo_href) {
         Optional<Figure> optionalFigure = figureRepository.findById(Integer.parseInt(id));
         Optional<FigureType> optional = figureTypeRepository.findById(Integer.valueOf(type_id));
 
         if (optionalFigure.isPresent()) {
             Figure figure = optionalFigure.get();
             figure.setFullname(fullname);
+            figure.setPhotoHref(photo_href);
             optional.ifPresent(figure::setTypeId);
             if (sex.length() == 1 && (sex.contains("М") || sex.contains("Ж"))) figure.setSex(sex);
             else {
-                return "redirect:/figure";
+                return "redirect:/admin/figure/" + id;
             }
             try {
                 figure.setBirthday(DateUtil.getDateFromString(birthday));
             } catch (ParseException ignore) {
             }
             figureRepository.save(figure);
-            return "redirect:/figure";
+            return "redirect:/admin/figure/" + id;
         }
-        return "redirect:/figure";
+        return "redirect:/admin/figure/" + id;
     }
 
-    @PostMapping(path = "/delete")
-    public String deleteFigure(@RequestParam String id) {
+    @PostMapping(path = "/delete/{id}")
+    public String deleteFigure(@PathVariable(value = "id") String id) {
         try {
             figureRepository.deleteById(Integer.valueOf(id));
         } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {

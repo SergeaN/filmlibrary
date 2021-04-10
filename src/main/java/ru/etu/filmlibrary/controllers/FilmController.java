@@ -109,15 +109,9 @@ public class FilmController {
                 studio.length() >= 255 || photo_href.length() >= 255)
             return "redirect:/admin/films";
         Film film = new Film();
-        film.setTitle(title);
-        film.setReleased(Integer.parseInt(released));
-        film.setCountry(country);
-        genreRepository.findById(Integer.parseInt(genre_id)).ifPresent(film::setGenreId);
-        film.setDescription(description);
-        film.setStudio(studio);
-        film.setPhotoHref(photo_href);
-        filmRepository.save(film);
-        return "redirect:/admin/film/" + film.getId();
+        buildFilm(title, released, country, genre_id,
+                description, studio, photo_href, film);
+        return "redirect:/admin/films/";
     }
 
     @PostMapping(path = "/update")
@@ -127,26 +121,39 @@ public class FilmController {
                              @RequestParam String country,
                              @RequestParam String genre_id,
                              @RequestParam String description,
-                             @RequestParam String studio) {
+                             @RequestParam String studio,
+                             @RequestParam String photo_href) {
+
         if (title.length() >= 255 || released.length() != 4 ||
                 country.length() >= 255 || description.length() >= 255 ||
-                studio.length() >= 255) return "redirect:/film";
+                studio.length() >= 255 || photo_href.length() >= 255)
+            return "redirect:/admin/film/edit/" + id;
         Optional<Film> filmOptional = filmRepository.findById(Integer.parseInt(id));
         if (filmOptional.isPresent()) {
             Film film = filmOptional.get();
-            film.setTitle(title);
-            film.setReleased(Integer.parseInt(released));
-            film.setCountry(country);
-            genreRepository.findById(Integer.parseInt(genre_id)).ifPresent(film::setGenreId);
-            film.setDescription(description);
-            film.setStudio(studio);
-            return "redirect:/film/" + film.getId();
+            buildFilm(title, released, country, genre_id,
+                    description, studio, photo_href, film);
+            return "redirect:/admin/film/edit/" + id;
         }
-        return "redirect:/film";
+        return "redirect:/admin/film/edit/" + id;
     }
 
-    @PostMapping(path = "/delete")
-    public String deleteFilm(@RequestParam String id) {
+    private void buildFilm(@RequestParam String title, @RequestParam String released,
+                           @RequestParam String country, @RequestParam String genre_id,
+                           @RequestParam String description, @RequestParam String studio,
+                           @RequestParam String photo_href, Film film) {
+        film.setTitle(title);
+        film.setReleased(Integer.parseInt(released));
+        film.setCountry(country);
+        genreRepository.findById(Integer.parseInt(genre_id)).ifPresent(film::setGenreId);
+        film.setDescription(description);
+        film.setStudio(studio);
+        film.setPhotoHref(photo_href);
+        filmRepository.save(film);
+    }
+
+    @PostMapping(path = "/delete/{id}")
+    public String deleteFilm(@PathVariable(value = "id") String id) {
         try {
             filmRepository.deleteById(Integer.parseInt(id));
         } catch (EmptyResultDataAccessException | IllegalArgumentException ignored) {
@@ -155,7 +162,8 @@ public class FilmController {
     }
 
     @PostMapping(path = "/addFigure")
-    public String addFigure(@RequestParam String figureId, @RequestParam String filmId) {
+    public String addFigure(@RequestParam String figureId,
+                            @RequestParam String filmId) {
         Optional<Figure> optionalFigure = figureRepository.findById(Integer.parseInt(figureId));
         Optional<Film> optionalFilm = filmRepository.findById(Integer.parseInt(filmId));
         if (optionalFigure.isPresent() && optionalFilm.isPresent()) {
@@ -163,13 +171,14 @@ public class FilmController {
             Film film = optionalFilm.get();
             film.getFigures().add(figure);
             filmRepository.save(film);
-            return "redirect:/admin/film/" + film.getId();
+            return "redirect:/admin/film/figures/" + film.getId();
         }
-        return "redirect:/admin/films/";
+        return "redirect:/admin/film/";
     }
 
-    @PostMapping(path = "/deleteFigure")
-    public String deleteFigure(@RequestParam String figureId, @RequestParam String filmId) {
+    @PostMapping(path = "/deleteFigure/{figureId}")
+    public String deleteFigure(@PathVariable(value = "figureId") String figureId,
+                               @RequestParam String filmId) {
         Optional<Figure> optionalFigure = figureRepository.findById(Integer.parseInt(figureId));
         Optional<Film> optionalFilm = filmRepository.findById(Integer.parseInt(filmId));
         if (optionalFigure.isPresent() && optionalFilm.isPresent()) {
@@ -177,7 +186,7 @@ public class FilmController {
             Film film = optionalFilm.get();
             film.getFigures().remove(figure);
             filmRepository.save(film);
-            return "redirect:/admin/film/" + film.getId();
+            return "redirect:/admin/film/figures/" + film.getId();
         }
         return "redirect:/admin/films/";
     }

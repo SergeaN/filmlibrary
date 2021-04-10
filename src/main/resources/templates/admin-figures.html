@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <title th:text="'Список фильмов для редактирования'"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/assets/css/style.css}">
+    <title>Редактирование фигур</title>
 </head>
 <body>
 <header>
@@ -76,16 +76,50 @@
 </header>
 <main>
     <div class="container">
-        <div th:each="film : ${films}" class="ml-2 mt-2">
-            <a th:href="@{film/{id}(id=${film.id})}" itemprop="url" style="cursor: pointer;">
-                <p th:text="${film.title} + ' ' + ${film.released}"/>
-            </a>
+        <h3 class="mt-3">Список фигур</h3>
+        <table>
+            <tr th:each="figure : ${figures}" class="film_persons_type">
+                <th>
+                    <p th:text="${figure.fullname}"/>
+                </th>
+                <th>
+                    <p th:text="${figure.typeId.title}"/>
+                </th>
+                <th>
+                    <a th:href="@{http://localhost:8080/admin/figure/{id}(id=${figure.id})}"
+                       itemprop="url" style="cursor: pointer;"><p th:text="Редактировать"/></a>
+                </th>
+                <th>
+                    <form th:action="@{http://localhost:8080/figure/delete/{id}(id=${figure.id})}"
+                          method="post" class="mb-3">
+                        <button type="submit" class="btn btn-success">Удалить</button>
+                    </form>
+                </th>
+            </tr>
+        </table>
+
+        <h3 class="mt-5">Список типов фигур</h3>
+        <div><p th:text="${figuretypes}"/></div>
+
+        <div>
+            <h3 class="mt-3">Добавление фигуры в базу данных: </h3>
+            <form action="/figure/add" method="post"><br>
+                <input type="text" name="type_id" placeholder="Figure Type ID (второй столбец)"
+                       class="form-control"><br>
+                <input type="text" name="fullname" placeholder="Полное имя" class="form-control"><br>
+                <input type="text" name="sex" placeholder="Пол - 1 буква (М или Ж)"
+                       class="form-control"><br>
+                <input type="text" name="birthday" placeholder="Дата рождения в формате ДД/ММ/ГГГГ"
+                       class="form-control"><br>
+                <input type="text" name="photo_href" placeholder="Ссылка на фотографию"
+                       class="form-control"><br>
+                <button type="submit" class="btn btn-success mb-3">Добавить в базу</button>
+            </form>
         </div>
     </div>
 </main>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"/>
 </body>
 </html>

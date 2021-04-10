@@ -34,83 +34,75 @@ public class AdminController {
     @Autowired
     FigureTypeRepository figureTypeRepository;
 
-
-    @Autowired
-    private UserService userService;
-
     @GetMapping
-    public String edit(){
+    public String edit() {
         return "admin";
     }
 
-    @GetMapping(path = "/genres")
-    public String editGenres(Model model) {
+    @GetMapping(path = "/film/edit/{id}")
+    public String getFilmInfo(@PathVariable(value = "id") String id, Model model) {
         model.addAttribute("genres", genreRepository.findAll());
-        return "admin-genres";
+        filmRepository.findById(Integer.parseInt(id)).ifPresent(model::addAttribute);
+        return "admin-film-edit";
     }
 
-    @GetMapping(path = "/filmsedit")
-    public String editFilmsList(Model model) {
-        model.addAttribute("films", filmRepository.findAll());
-        return "admin-films-edit";
-    }
-
-    @GetMapping(path = "/film/{id}")
-    public String editFilm(@PathVariable(value = "id") String id, Model model) {
+    @GetMapping(path = "/film/figures/{id}")
+    public String getFilm(@PathVariable(value = "id") String id, Model model) {
         Optional<Film> filmOptional = filmRepository.findById(Integer.parseInt(id));
         if (filmOptional.isPresent()) {
             Film film = filmOptional.get();
-            String filmInfo = film.getId() + " " + film.getTitle() + " " +
-                    film.getReleased() + " " + film.getGenreId().getTitle();
-            List<String> filmFigures = new ArrayList<>();
-            for (Figure figure : film.getFigures()) {
-                filmFigures.add(figure.getTypeId().getTitle() + " " + figure.getId() + " " +
-                        figure.getFullname() + " " + new SimpleDateFormat("dd/MM/yyyy")
-                                .format(figure.getBirthday()));
-            }
-
             List<String> figures = new ArrayList<>();
-            for(Figure figure: figureRepository.findAll()){
-                if(!film.getFigures().contains(figure)){
-                    figures.add(figure.getTypeId().getTitle() + " " + figure.getId() + " " +
-                            figure.getFullname() + " " + new SimpleDateFormat("dd/MM/yyyy")
-                            .format(figure.getBirthday()));
+            for (Figure figure : figureRepository.findAll()) {
+                if (!film.getFigures().contains(figure)) {
+                    figures.add(figure.getId() + " " + figure.getFullname() + " "
+                            + figure.getTypeId().getTitle());
                 }
             }
 
-            model.addAttribute("id", film.getId());
-            model.addAttribute("film", filmInfo);
-            model.addAttribute("filmfigures", filmFigures.toString());
+            model.addAttribute("film", film);
             model.addAttribute("figures", figures.toString());
-
-            return "admin-film";
+            return "admin-film-figures";
         }
-        return "admin-film";
+        return "admin-films";
+    }
+
+    @GetMapping(path = "/figure/{id}")
+    public String getEditedFigure(@PathVariable(value = "id") String id, Model model) {
+        Optional<Figure> figureOptional = figureRepository.findById(Integer.parseInt(id));
+        if (figureOptional.isPresent()) {
+            Figure figure = figureOptional.get();
+            model.addAttribute("figuretypes", figureTypeRepository.findAll());
+            model.addAttribute("figure", figure);
+            model.addAttribute("birthday",
+                    new SimpleDateFormat("dd/MM/yyyy").format(figure.getBirthday()));
+        }
+        return "admin-figure-edit";
     }
 
     @GetMapping(path = "/films")
-    public String editFilms(Model model) {
-        List<String> films = new ArrayList<>();
-        for (Film film : filmRepository.findAll()) {
-            films.add(film.getId() + " " + film.getTitle() + " "
-                    + film.getReleased());
-        }
-        model.addAttribute("films", films.toString());
+    public String getFilms(Model model) {
+        model.addAttribute("films", filmRepository.findAll());
         model.addAttribute("genres", genreRepository.findAll());
         return "admin-films";
     }
 
     @GetMapping(path = "/figures")
-    public String editFigure(Model model) {
-        model.addAttribute("figures", figureRepository.findAll().toString());
-        model.addAttribute("figuretypes", figureTypeRepository.findAll().toString());
-        return "admin-figure";
+    public String getFigures(Model model) {
+        model.addAttribute("figures", figureRepository.findAll());
+        model.addAttribute("figuretypes", figureTypeRepository.findAll());
+        return "admin-figures";
     }
 
     @GetMapping(path = "/users")
-    public String editUsers(Model model){
-        model.addAttribute("users", userRepository.findAll().toString());
+    public String getUsers(Model model) {
+        model.addAttribute("users", userRepository.findAll());
         return "admin-users";
+    }
+
+    @GetMapping(path = "/genres")
+    public String getGenres(Model model) {
+        model.addAttribute("genres", genreRepository.findAll());
+        return "admin-genres";
     }
 
 }
