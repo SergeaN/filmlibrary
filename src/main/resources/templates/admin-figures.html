@@ -38,14 +38,13 @@
             </tr>
         </table>
 
-        <h3 class="mt-5">Список типов фигур</h3>
-        <div><p th:text="${figuretypes}"/></div>
-
         <div>
             <h3 class="mt-3">Добавление фигуры в базу данных: </h3>
             <form action="/figure/add" method="post"><br>
-                <input type="text" name="type_id" placeholder="Figure Type ID (второй столбец)"
-                       class="form-control"><br>
+                <select name="type_id" class="mb-4">
+                    <option th:each="type: ${figuretypes}" th:value="${type.id}">
+                        <p th:text="${type.title}"/></option>
+                </select>
                 <input type="text" name="fullname" placeholder="Полное имя" class="form-control"><br>
                 <input type="text" name="sex" placeholder="Пол - 1 буква (М или Ж)"
                        class="form-control"><br>

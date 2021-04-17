@@ -16,15 +16,15 @@
 <header th:insert="header :: header"></header>
 <main>
     <div class="container">
-        <h3 class="mt-2">Список типов фигур</h3>
-        <div><p th:text="${figuretypes}"/></div>
-
         <div>
             <h3 class="mt-2">Изменение информации о фигуре: </h3>
             <form action="/figure/update" method="post">
                 <input type="hidden" name="id" th:value="${figure.id}" class="form-control">
-                <input type="text" name="type_id" th:value="${figure.typeId.id}"
-                       placeholder="Figure Type ID (второй столбец)" class="form-control"><br>
+                <select name="type_id" class="mb-4">
+                    <option th:each="type: ${figuretypes}" th:value="${type.id}"
+                            th:selected="${type.id==figure.typeId.id}">
+                        <p th:text="${type.title}"/></option>
+                </select>
                 <input type="text" name="fullname" th:value="${figure.fullname}"
                        placeholder="Полное имя" class="form-control"><br>
                 <input type="text" name="sex" th:value="${figure.sex}"

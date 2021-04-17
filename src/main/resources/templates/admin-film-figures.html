@@ -40,12 +40,15 @@
         </tr>
     </table>
 
-    <h3 class="mt-5">Список доступных фигур</h3>
-    <div class="mt-2"><p th:text="${figures}"/></div>
+   <!-- <h3 class="mt-5">Список доступных фигур</h3>
+    <div class="mt-2"><p th:text="${figures}"/></div>-->
 
     <h3 class="mt-2">Добавление деятеля кино в фильма по ID: </h3>
     <form action="/film/addFigure/" method="post">
-        <input type="text" name="figureId" class="form-control" placeholder="Id фигуры"><br>
+        <!-- <input type="text" name="figureId" class="form-control" placeholder="Id фигуры"><br> -->
+        <input type="search" id="figureName" placeholder="Search"
+               aria-label="Search" oninput="findFigure()">
+        <div id="figuresList"></div><br/>
         <input type="hidden" name="filmId" th:value="${film.id}" class="form-control">
         <button type="submit" class="btn btn-success mb-3">Добавить в базу</button>
     </form>
@@ -54,5 +57,23 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
         crossorigin="anonymous"></script>
+
+<script>
+   function findFigure()
+   {
+        // var searchName = document.getElementsByName("figureName")[0].value;
+        var searchName = figureName.value;
+        var request = new XMLHttpRequest();
+        request.open("GET", "/search-figures/" + searchName, true);
+        request.setRequestHeader("content-type", "text/html");
+        request.setRequestHeader("charset", "UTF-8");
+        request.addEventListener("load", function ()
+        {
+            figuresList.innerHTML = request.response;
+        });
+        request.send();
+   }
+</script>
+
 </body>
 </html>

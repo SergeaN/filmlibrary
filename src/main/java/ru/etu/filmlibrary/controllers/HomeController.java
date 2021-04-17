@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.etu.filmlibrary.models.repositories.FigureRepository;
@@ -38,6 +39,12 @@ public class HomeController {
         model.addAttribute("films", filmRepository.findFilmsByQuery(searchQuery));
         model.addAttribute("figures", figureRepository.findFiguresByQuery(searchQuery));
         return "films-list";
+    }
+
+    @GetMapping(path = "/search-figures/{searchName}")
+    public String searchFigures(@PathVariable(value = "searchName") String searchName, Model model) {
+        model.addAttribute("figures", figureRepository.findFiguresByQuery(searchName));
+        return "findfigures";
     }
 
 }

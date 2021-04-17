@@ -40,9 +40,6 @@
             </tr>
         </table>
 
-        <h3 class="mt-3">Список жанров</h3>
-        <div class="mt-3"><p th:text="${genres}"/></div>
-
         <div>
             <h3 class="mt-3">Добавление фильма в базу данных: </h3>
             <form action="/film/add" method="post"><br>
@@ -52,8 +49,10 @@
                        class="form-control"><br>
                 <input type="text" name="country" placeholder="Страна выхода"
                        class="form-control"><br>
-                <input type="text" name="genre_id" placeholder="Id жанра фильма (список id в начале страницы)"
-                       class="form-control"><br>
+                <select name="genre_id" class="mb-4">
+                    <option th:each="genre: ${genres}" th:value="${genre.id}">
+                        <p th:text="${genre.title}"/></option>
+                </select>
                 <input type="text" name="description" placeholder="Описание (не больше 254 символов)"
                        class="form-control"><br>
                 <input type="text" name="studio" placeholder="Студия производства"

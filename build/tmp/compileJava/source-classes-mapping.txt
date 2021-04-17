@@ -2,8 +2,8 @@ ru/etu/filmlibrary/config/WebSecurityConfig.java
  ru.etu.filmlibrary.config.WebSecurityConfig
 ru/etu/filmlibrary/utils/DateUtil.java
  ru.etu.filmlibrary.utils.DateUtil
-ru/etu/filmlibrary/controllers/FigureController.java
- ru.etu.filmlibrary.controllers.FigureController
+ru/etu/filmlibrary/models/repositories/FilmRepository.java
+ ru.etu.filmlibrary.models.repositories.FilmRepository
 ru/etu/filmlibrary/FilmlibraryApplication.java
  ru.etu.filmlibrary.FilmlibraryApplication
 ru/etu/filmlibrary/models/data/User.java
@@ -40,7 +40,7 @@ ru/etu/filmlibrary/controllers/AdminController.java
  ru.etu.filmlibrary.controllers.AdminController
 ru/etu/filmlibrary/controllers/FilmController.java
  ru.etu.filmlibrary.controllers.FilmController
-ru/etu/filmlibrary/models/repositories/FilmRepository.java
- ru.etu.filmlibrary.models.repositories.FilmRepository
+ru/etu/filmlibrary/controllers/FigureController.java
+ ru.etu.filmlibrary.controllers.FigureController
 ru/etu/filmlibrary/controllers/HomeController.java
  ru.etu.filmlibrary.controllers.HomeController
