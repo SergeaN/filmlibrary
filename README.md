@@ -1,2 +1,3 @@
 # filmlibrary
- Web-programming course work
+"Film Library" web application using Java Spring framework.
+Course work in the discipline web programming.
